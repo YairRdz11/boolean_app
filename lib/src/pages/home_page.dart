@@ -1,4 +1,3 @@
-import 'package:boolean_app/src/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {

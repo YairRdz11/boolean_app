@@ -5,8 +5,15 @@ class TablePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text('Table'),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Tabla')),
+      body: const Text('Table'),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: const Icon(Icons.arrow_back),
+      )
     );
   }
 }
