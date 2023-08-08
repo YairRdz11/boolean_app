@@ -1,3 +1,4 @@
+import 'package:boolean_app/src/pages/table_page.dart';
 import 'package:flutter/material.dart';
 
 class TableFormPage extends StatefulWidget {
@@ -8,7 +9,6 @@ class TableFormPage extends StatefulWidget {
 }
 
 class _TableFormPageState extends State<TableFormPage> {
-
   String _optionSelected = '1';
   final _variablesNumberList = ['1', '2', '3', '4', '5', '6']; 
   @override
@@ -32,7 +32,7 @@ class _TableFormPageState extends State<TableFormPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/table');
+          Navigator.push(context, MaterialPageRoute(builder: (context) => TablePage(args: _optionSelected)));
         },
         child: const Icon(Icons.arrow_forward),
         ),

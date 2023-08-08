@@ -8,6 +8,6 @@ Map<String, WidgetBuilder> getApplicationBuilder() {
   return <String, WidgetBuilder> {
         '/' : (BuildContext context ) => HomePage(),
         'table-form' : (BuildContext context ) => TableFormPage(),
-        'table': (BuildContext context) => TablePage()
+        //'table': (BuildContext context) => TablePage()
   };
 }

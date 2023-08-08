@@ -1,3 +1,4 @@
+import 'package:boolean_app/src/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:boolean_app/src/pages/table_page.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: getApplicationBuilder(),
       onGenerateRoute: (RouteSettings settings) {
-        return MaterialPageRoute(builder: (BuildContext context) => const TablePage());
+        return MaterialPageRoute(builder: (BuildContext context) => const HomePage());
       },
     );
   }

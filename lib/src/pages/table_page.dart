@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 
-class TablePage extends StatelessWidget {
-  const TablePage({super.key});
+class TablePage extends StatefulWidget {
+  final String args;
 
+  const TablePage({super.key, required this.args});
+
+  @override
+  State<TablePage> createState() => _TablePageState();
+}
+
+class _TablePageState extends State<TablePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Tabla')),
       body: DataTable(
-      columns: const <DataColumn>[
+      columns: <DataColumn>[
         DataColumn(
           label: Expanded(
             child: Text(
-              'Name',
+              'Letras ${widget.args}',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
