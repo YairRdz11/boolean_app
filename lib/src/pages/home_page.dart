@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
         leading: const Icon(Icons.border_all_rounded),
         trailing: const Icon(Icons.keyboard_arrow_right, color: Colors.blue,),
         onTap: () {
-          Navigator.pushNamed(context, 'table');
+          Navigator.pushNamed(context, 'table-form');
         },
       );
       final widgetFunction = ListTile(
