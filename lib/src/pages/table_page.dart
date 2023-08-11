@@ -12,61 +12,24 @@ class TablePage extends StatefulWidget {
 }
 
 class _TablePageState extends State<TablePage> {
+  ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Tabla')),
-      body: _createTable(widget.args),/*DataTable(
-      columns: <DataColumn>[
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'Letras ${widget.args}',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-        ),
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'Age',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-        ),
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'Role',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-        ),
-      ],
-      rows: const <DataRow>[
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Sarah')),
-            DataCell(Text('19')),
-            DataCell(Text('Student')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Janine')),
-            DataCell(Text('43')),
-            DataCell(Text('Professor')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('William')),
-            DataCell(Text('27')),
-            DataCell(Text('Associate Professor')),
-          ],
-        ),
-      ],
-    ),*/
+      body: ListView(
+        padding: const EdgeInsets.all(8),
+        children: <Widget>[
+          _createTable(widget.args)
+        ]
+      ),
+      //_createTable(widget.args),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pop(context);
@@ -117,6 +80,7 @@ class _TablePageState extends State<TablePage> {
     num length = pow(2, number);
     List<DataRow> rows = List.empty(growable: true);
     for (var i = 0; i < length; i++) {
+      //Number.toRadixString(2);
       List<DataCell> cellList = List.empty(growable: true);
       for (var j = 0; j < number; j++) {
         DataCell cell = DataCell(Text('0'));
