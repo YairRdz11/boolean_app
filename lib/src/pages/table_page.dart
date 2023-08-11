@@ -1,3 +1,4 @@
+import 'package:boolean_app/src/utils/binary_convert.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -12,12 +13,10 @@ class TablePage extends StatefulWidget {
 }
 
 class _TablePageState extends State<TablePage> {
-  ScrollController _scrollController = ScrollController();
 
   @override
   void dispose() {
     super.dispose();
-    _scrollController.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -80,10 +79,10 @@ class _TablePageState extends State<TablePage> {
     num length = pow(2, number);
     List<DataRow> rows = List.empty(growable: true);
     for (var i = 0; i < length; i++) {
-      //Number.toRadixString(2);
+      String binary = BinaryConvert.decimalToBinary(i, number);
       List<DataCell> cellList = List.empty(growable: true);
       for (var j = 0; j < number; j++) {
-        DataCell cell = DataCell(Text('0'));
+        DataCell cell = DataCell(Text(binary[j]));
         cellList.add(cell);
       }
       cellList.add(const DataCell(Text('0')));
