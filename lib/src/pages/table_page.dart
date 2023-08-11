@@ -1,3 +1,4 @@
+import 'package:boolean_app/src/pages/data_cell_content.dart';
 import 'package:boolean_app/src/utils/binary_convert.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -28,7 +29,6 @@ class _TablePageState extends State<TablePage> {
           _createTable(widget.args)
         ]
       ),
-      //_createTable(widget.args),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pop(context);
@@ -82,10 +82,12 @@ class _TablePageState extends State<TablePage> {
       String binary = BinaryConvert.decimalToBinary(i, number);
       List<DataCell> cellList = List.empty(growable: true);
       for (var j = 0; j < number; j++) {
-        DataCell cell = DataCell(Text(binary[j]));
+        DataCell cell = DataCell(
+           Text(binary[j])
+          );
         cellList.add(cell);
       }
-      cellList.add(const DataCell(Text('0')));
+      cellList.add(const DataCell(DataCellContent(initialValue: "0")));
       DataRow row = DataRow(cells: cellList);
       rows.add(row);
     }
