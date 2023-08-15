@@ -1,4 +1,5 @@
 import 'package:boolean_app/src/pages/data_cell_content.dart';
+import 'package:boolean_app/src/pages/karnaugh_page.dart';
 import 'package:boolean_app/src/utils/binary_convert.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -43,6 +44,7 @@ class _TablePageState extends State<TablePage> {
             String value = inkWell.value;
             valueList.add(value);
           }
+          Navigator.push(context, MaterialPageRoute(builder: (context) => KarnaughPage(args: valueList)));
         },
         child: const Icon(Icons.arrow_forward),
       )
