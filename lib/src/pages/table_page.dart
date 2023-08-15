@@ -15,10 +15,14 @@ class TablePage extends StatefulWidget {
 
 class _TablePageState extends State<TablePage> {
 
+  List<DataRow> rowList = [];
+  List<String> valueList = [];
+
   @override
   void dispose() {
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +35,14 @@ class _TablePageState extends State<TablePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pop(context);
+          valueList = [];
+          int rowLength = int.tryParse(widget.args) ?? 0;
+          num length = pow(2, rowLength);
+          for(var i = 0; i < length; i++){
+            var inkWell = rowList[i].cells[rowLength].child as DataCellContent;
+            String value = inkWell.value;
+            valueList.add(value);
+          }
         },
         child: const Icon(Icons.arrow_forward),
       )
@@ -62,8 +73,8 @@ class _TablePageState extends State<TablePage> {
       DataColumn column = DataColumn(
           label: Expanded(
             child: Text(
-              '$currentCharacter',
-              style: TextStyle(fontStyle: FontStyle.italic),
+              currentCharacter,
+              style: const TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
         );
@@ -77,7 +88,7 @@ class _TablePageState extends State<TablePage> {
   
   List<DataRow> _createRows(int number) {
     num length = pow(2, number);
-    List<DataRow> rows = List.empty(growable: true);
+    rowList = List.empty(growable: true);
     for (var i = 0; i < length; i++) {
       String binary = BinaryConvert.decimalToBinary(i, number);
       List<DataCell> cellList = List.empty(growable: true);
@@ -87,11 +98,11 @@ class _TablePageState extends State<TablePage> {
           );
         cellList.add(cell);
       }
-      cellList.add(const DataCell(DataCellContent(initialValue: "0")));
+      cellList.add(DataCell(DataCellContent(initialValue: "0")));
       DataRow row = DataRow(cells: cellList);
-      rows.add(row);
+      rowList.add(row);
     }
 
-    return rows;
+    return rowList;
   }
 }
