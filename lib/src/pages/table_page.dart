@@ -37,6 +37,7 @@ class _TablePageState extends State<TablePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           valueList = [];
+          valueList.add(widget.args);
           int rowLength = int.tryParse(widget.args) ?? 0;
           num length = pow(2, rowLength);
           for(var i = 0; i < length; i++){
