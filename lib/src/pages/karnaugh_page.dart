@@ -12,6 +12,90 @@ class KarnaughPage extends StatefulWidget {
 }
 
 class _KarnaughPageState extends State<KarnaughPage> {
+  int _literalNumber = 0;
+  List<int?> _valueList = List.empty(growable: true);
+  List<List<int>> _matrix = List.generate(1, (_) => List.filled(1, 0), growable: true);
+   int _rowLength = 0;
+    int _columnLength = 0;
+  
+  @override
+  void initState() {
+    _literalNumber = int.parse(widget.args[0]);
+    _valueList = widget.args.skip(1).map((e) => int.tryParse(e)).toList();
+    var length = pow(2, _literalNumber);
+    List<int> listTemp = List.empty(growable: true);
+
+    for(int i = 0; i < length; i++){
+      listTemp.add(i);
+    }
+
+    switch(_literalNumber){
+      case 2:
+        _rowLength = 2;
+        _columnLength = 2;
+      break;
+      case 3:
+        _rowLength = 2;
+        _columnLength = 4;
+      break;
+      case 4:
+        _rowLength = 4;
+        _columnLength = 4;
+      break;
+      case 5:
+        _rowLength = 4;
+        _columnLength = 8;
+      break;
+    }
+
+    _matrix = List.generate(_rowLength, (_) => List.filled(_columnLength, 0));
+
+    int iterator = 0;
+    for(int i = 0; i < _rowLength; i++){
+      for(int j = 0; j < _columnLength; j++){
+        _matrix[i][j] = listTemp[iterator];
+        iterator++;
+      }
+    }
+
+   switch(_literalNumber){
+      case 3:
+        rotateColumn(_matrix, 2, 3);
+      break;
+      case 4:
+        rotateColumn(_matrix, 2, 3);
+        rotateRow(_matrix, 2, 3);
+      break;
+      case 5:
+        rotateColumn(_matrix, 2, 3);
+        rotateColumn(_matrix, 4, 7);
+        rotateColumn(_matrix, 4, 5);
+        rotateColumn(_matrix, 4, 6);
+        rotateRow(_matrix, 2, 3);
+      break;
+    }
+    super.initState();
+  }
+
+  void rotateRow(List<List<int>> matrix, int row1, int row2) {
+    //int columnLength = matrix[0].length;
+
+    for(int i = 0; i < matrix[0].length; i++){
+      int temp = matrix[row1][i];
+      matrix[row1][i] = matrix[row2][i];
+      matrix[row2][i] = temp;
+    }
+  }
+
+  void rotateColumn(List<List<int>> matrix, int column1, int column2){
+    
+    for (int i = 0; i < matrix.length; i++) {
+      int temp = matrix[i][column1];
+      matrix[i][column1] = matrix[i][column2];
+      matrix[i][column2] = temp;
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,28 +104,27 @@ class _KarnaughPageState extends State<KarnaughPage> {
         padding: const EdgeInsets.all(8),
         children: <Widget>[
           Text(widget.args.toString()),
-          _createKarnaugh(widget.args)
+          _createKarnaugh()
         ]
       ),
     );
   }
   
-  DataTable _createKarnaugh(List<String> args) {
-    int size = int.tryParse(args.first) ?? 0;
-    List<int?> valueList = args.skip(1).map((e) => int.tryParse(e)).toList();
+  DataTable _createKarnaugh() {
+    
 
     return DataTable(
-      columns: _createColumns(size), 
-      rows: _createRows(size)
+      columns: _createColumns(), 
+      rows: _createRows()
     );
   }
 
-  List<DataColumn> _createColumns(int size) {
+  List<DataColumn> _createColumns() {
     List<DataColumn> columns = List.empty(growable: true);
     int lengthBinary = 0;
-    num lengthColumn = 0;
     String title = '';
-    switch(size){
+
+    switch(_literalNumber){
       case 2:
         title = 'a\\b';
         lengthBinary = 1;
@@ -72,8 +155,7 @@ class _KarnaughPageState extends State<KarnaughPage> {
           ),
         ));
 
-    lengthColumn = pow(2, lengthBinary);
-    for(int i = 0; i < lengthColumn; i++){
+    for(int i = 0; i < _columnLength; i++){
       var binaryNumber = '';
       switch(i)
       {
@@ -114,33 +196,27 @@ class _KarnaughPageState extends State<KarnaughPage> {
     return columns;
   }
   
-  List<DataRow> _createRows(int size) {
+  List<DataRow> _createRows() {
     List<DataRow> rows = List.empty(growable: true);
     int lengthBinary = 0;
-    num lengthRow = 0;
-    num lengthColumn = 0;
-    switch(size){
+
+    switch(_literalNumber){
       case 2:
         lengthBinary = 1;
-        lengthColumn = pow(2, 1);
       break;
       case 3:
         lengthBinary = 1;
-        lengthColumn = pow(2, 2);
       break;
       case 4:
       case 6:
         lengthBinary = 2;
-        lengthColumn = pow(2, 2);
       break;
       case 5:
         lengthBinary = 2;
-        lengthColumn = pow(2, 3);
       break;
     }
-    lengthRow = pow(2, lengthBinary);
 
-    for(int i = 0; i < lengthRow; i++){
+    for(int i = 0; i < _rowLength; i++){
       var binaryNumber = '';
       switch(i)
       {
@@ -159,9 +235,9 @@ class _KarnaughPageState extends State<KarnaughPage> {
       List<DataCell> cellList = List.empty(growable: true);
       cellList.add(DataCell(Text(binaryNumber, style: const TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold))));
 
-      for (var j = 0; j < lengthColumn; j++) {
-        DataCell cell = const DataCell(
-           Text('0')
+      for (var j = 0; j < _columnLength; j++) {
+        DataCell cell = DataCell(
+           Text(_matrix[i][j].toString())
           );
         cellList.add(cell);
       }
