@@ -46,6 +46,10 @@ class _KarnaughPageState extends State<KarnaughPage> {
         _rowLength = 4;
         _columnLength = 8;
       break;
+      case 6:
+        _rowLength = 4;
+        _columnLength = 4;
+      break;
     }
 
     _matrix = List.generate(_rowLength, (_) => List.filled(_columnLength, 0));
@@ -63,6 +67,7 @@ class _KarnaughPageState extends State<KarnaughPage> {
         rotateColumn(_matrix, 2, 3);
       break;
       case 4:
+      case 6:
         rotateColumn(_matrix, 2, 3);
         rotateRow(_matrix, 2, 3);
       break;
@@ -78,7 +83,6 @@ class _KarnaughPageState extends State<KarnaughPage> {
   }
 
   void rotateRow(List<List<int>> matrix, int row1, int row2) {
-    //int columnLength = matrix[0].length;
 
     for(int i = 0; i < matrix[0].length; i++){
       int temp = matrix[row1][i];
@@ -100,23 +104,32 @@ class _KarnaughPageState extends State<KarnaughPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Karnaugh')),
-      body: ListView(
-        padding: const EdgeInsets.all(8),
-        children: <Widget>[
-          Text(widget.args.toString()),
-          _createKarnaugh()
-        ]
-      ),
+      body: _createKarnaugh()
     );
   }
   
-  DataTable _createKarnaugh() {
-    
+  ListView _createKarnaugh() {
 
-    return DataTable(
-      columns: _createColumns(), 
-      rows: _createRows()
+    return ListView(
+      padding: const EdgeInsets.all(8),
+        children: _buildKarnaugh()
     );
+  }
+
+  List<Widget> _buildKarnaugh() {
+    List<Widget> listWidget = List.empty(growable: true);
+    if(_literalNumber == 6){
+      listWidget.add(const Text('a'));
+      listWidget.add(DataTable(columns: _createColumns(), rows: _createRows()));
+      listWidget.add(const Text('b'));
+      listWidget.add(DataTable(columns: _createColumns(), rows: _createRows()));
+      return listWidget;
+    }
+    else{
+      listWidget.add(Text(widget.args.toString()));
+      listWidget.add(DataTable(columns: _createColumns(), rows: _createRows()));
+      return listWidget;
+    }
   }
 
   List<DataColumn> _createColumns() {
