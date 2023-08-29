@@ -1,7 +1,5 @@
 import 'package:boolean_app/src/pages/home_page.dart';
 import 'package:flutter/material.dart';
-
-import 'package:boolean_app/src/pages/table_page.dart';
 import 'package:boolean_app/src/routes/routes.dart';
 
 void main() {

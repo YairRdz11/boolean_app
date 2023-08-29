@@ -36,7 +36,10 @@ class _KarnaughPageState extends State<KarnaughPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Karnaugh')),
-      body: _karnaughBuilder.createKarnaugh()
+      body:  ListView(
+      padding: const EdgeInsets.all(8),
+        children: _karnaughBuilder.buildKarnaugh(),
+      )
     );
   }
 }

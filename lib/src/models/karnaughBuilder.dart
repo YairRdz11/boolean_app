@@ -10,27 +10,29 @@ class KarnaughBuilder {
     _karnaugh = karnaugh;
   }
 
-  ListView createKarnaugh() {
-
-    return ListView(
-      padding: const EdgeInsets.all(8),
-        children: _buildKarnaugh()
-    );
-  }
-
-  List<Widget> _buildKarnaugh() {
+  List<Widget> buildKarnaugh() {
     List<Widget> listWidget = List.empty(growable: true);
     if(_karnaugh.literalNumber == 6){
       listWidget.add(const Text('a'));
       listWidget.add(DataTable(columns: _createColumns(), rows: _createRows()));
       listWidget.add(const Text('b'));
       listWidget.add(DataTable(columns: _createColumns(), rows: _createRows()));
-      return listWidget;
     }
     else{
       listWidget.add(DataTable(columns: _createColumns(), rows: _createRows()));
-      return listWidget;
     }
+
+    listWidget.add(
+      const Row(
+        mainAxisAlignment: MainAxisAlignment.center, 
+        children: [
+          Icon(Icons.skip_previous),
+          Icon(Icons.play_circle),
+          Icon(Icons.pause_circle),
+          Icon(Icons.stop_circle),
+          Icon(Icons.skip_next)
+          ],));
+    return listWidget;
   }
 
   List<DataColumn> _createColumns() {
