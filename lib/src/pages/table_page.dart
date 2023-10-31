@@ -18,6 +18,7 @@ class _TablePageState extends State<TablePage> {
 
   List<DataRow> rowList = [];
   List<String> valueList = [];
+  static const String minitermsValue = "m";
 
   @override
   void dispose() {
@@ -71,6 +72,7 @@ class _TablePageState extends State<TablePage> {
           ),
         );
     int character = "z".codeUnitAt(0);
+
     for (var i = 0; i < varibleNumber; i++) {
       String currentCharacter = String.fromCharCode(character);
       DataColumn column = DataColumn(
@@ -84,6 +86,18 @@ class _TablePageState extends State<TablePage> {
       columns.add(column);
       character--;
     }
+
+    String minitermStr = String.fromCharCode(minitermsValue.codeUnitAt(0));
+    DataColumn column = DataColumn(
+        label: Expanded(
+          child: Text(
+            minitermStr,
+            style: const TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ),
+      );
+    columns.add(column);
+      
     columns = columns.reversed.toList();
     columns.add(columnResult);
     return columns;
@@ -92,9 +106,16 @@ class _TablePageState extends State<TablePage> {
   List<DataRow> _createRows(int number) {
     num length = pow(2, number);
     rowList = List.empty(growable: true);
+
     for (var i = 0; i < length; i++) {
       String binary = BinaryConvert.decimalToBinary(i, number);
       List<DataCell> cellList = List.empty(growable: true);
+
+      DataCell cell = DataCell(
+           Text(i.toString())
+        );
+      cellList.add(cell);
+
       for (var j = 0; j < number; j++) {
         DataCell cell = DataCell(
            Text(binary[j])
