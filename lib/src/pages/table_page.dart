@@ -42,7 +42,7 @@ class _TablePageState extends State<TablePage> {
           int rowLength = int.tryParse(widget.args) ?? 0;
           num length = pow(2, rowLength);
           for(var i = 0; i < length; i++){
-            var inkWell = rowList[i].cells[rowLength].child as DataCellContent;
+            var inkWell = rowList[i].cells[rowLength + 1].child as DataCellContent;
             String value = inkWell.value;
             valueList.add(value);
           }

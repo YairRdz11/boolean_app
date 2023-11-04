@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:boolean_app/src/models/karnaugh.dart';
 import 'package:boolean_app/src/models/karnaughBuilder.dart';
+import 'package:boolean_app/src/models/miniterms.dart';
 import 'package:flutter/material.dart';
 
 class KarnaughPage extends StatefulWidget {
@@ -14,6 +15,7 @@ class KarnaughPage extends StatefulWidget {
 class _KarnaughPageState extends State<KarnaughPage> {
   late Karnaugh _karnaugh;
   late KarnaughBuilder _karnaughBuilder;
+  late Miniterms _miniterms;
   
   @override
   void initState() {
@@ -27,6 +29,8 @@ class _KarnaughPageState extends State<KarnaughPage> {
     }
     _karnaugh = Karnaugh(literalNumber.toString(), listTemp);
     _karnaughBuilder = KarnaughBuilder(_karnaugh);
+    _miniterms = Miniterms(valueList, literalNumber);
+    _miniterms.buildInitialTable();
 
     super.initState();
   }
