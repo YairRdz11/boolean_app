@@ -32,7 +32,7 @@ class _KarnaughPageState extends State<KarnaughPage> {
     _karnaughBuilder = KarnaughBuilder(_karnaugh);
     _miniterms = Miniterms(valueList, literalNumber);
     var qmc = QuineMcCluskey();
-    qmc.buildInitialTable(_miniterms);
+    var table = qmc.reduce(_miniterms);
 
     super.initState();
   }
