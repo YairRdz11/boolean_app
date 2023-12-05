@@ -1,14 +1,24 @@
+import 'package:boolean_app/src/models/comparer.dart';
 import 'package:boolean_app/src/models/miniterms.dart';
-import 'package:boolean_app/src/models/table_reducer.dart';
+import 'package:boolean_app/src/models/table_group.dart';
 
 class QuineMcCluskey
 {
-  List<TableReducer> tables = [];
+  List<TableGroup> tables = List.empty(growable: true);
 
   reduce(Miniterms miniterms)
   {
-    int i = 0;
-    TableReducer initialTable = TableReducer.groupFromMiniterms(miniterms);
-    initialTable.compare();
+    TableGroup table = TableGroup();
+
+    table.createFromMiniterms(miniterms);
+
+    while(table.quineMcCluskeyTable.isNotEmpty){
+      table = Comparer.compare(table);
+      if(table.quineMcCluskeyTable.isNotEmpty){
+        tables.add(table);
+      }
+    }
+    String result = tables.last.resolve();
+    print(result);
   }
 }
